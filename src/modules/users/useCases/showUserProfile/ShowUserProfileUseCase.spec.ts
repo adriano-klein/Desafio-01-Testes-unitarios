@@ -1,7 +1,4 @@
-import { CustomRepositoryCannotInheritRepositoryError } from "typeorm";
-
 import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository";
-import { UsersRepository } from "../../repositories/UsersRepository";
 import { AuthenticateUserUseCase } from "../authenticateUser/AuthenticateUserUseCase";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { ShowUserProfileError } from "./ShowUserProfileError";

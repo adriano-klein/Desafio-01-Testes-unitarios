@@ -18,22 +18,37 @@ describe("Create Statement Controller", () => {
   });
 
   it("Should not be able to create a withdraw without funds", async () => {
+    // criar o usuário
     await request(app).post("/api/v1/users").send({
       name: "Adriano Klein",
       email: "email@email.com",
       password: "123456",
     });
-
+    // autenticar o usuário
     const response = await request(app).post("/api/v1/sessions").send({
       email: "email@email.com",
       password: "123456",
     });
+
+    // obter o token do usuário
     const { token } = response.body;
 
+    // realizar o depósito
+    await request(app)
+      .post("/api/v1/statements/deposit")
+      .send({
+        amount: 100.0,
+        description: "This is just a test",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    // fazer um saque
     const withdraw = await request(app)
       .post("/api/v1/statements/withdraw")
       .send({
-        amount: 100,
+        amount: 170.0,
         description: "This is just a test",
       })
       .set({

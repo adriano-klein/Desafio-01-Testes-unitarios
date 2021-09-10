@@ -5,6 +5,7 @@ import { CreateUserUseCase } from "../../../users/useCases/createUser/CreateUser
 import { ICreateUserDTO } from "../../../users/useCases/createUser/ICreateUserDTO";
 import { OperationType } from "../../entities/OperationType";
 import { InMemoryStatementsRepository } from "../../repositories/in-memory/InMemoryStatementsRepository";
+import { GetBalanceUseCase } from "../getBalance/GetBalanceUseCase";
 import { CreateStatementError } from "./CreateStatementError";
 import { CreateStatementUseCase } from "./CreateStatementUseCase";
 import { ICreateStatementDTO } from "./ICreateStatementDTO";
@@ -88,7 +89,7 @@ describe("Create Statement", () => {
     const userId = authenticatedUser.user.id as string;
 
     const withdraw: ICreateStatementDTO = {
-      amount: 20000,
+      amount: 10000,
       description: "Buy a new car",
       type: "withdraw" as OperationType,
       user_id: userId,

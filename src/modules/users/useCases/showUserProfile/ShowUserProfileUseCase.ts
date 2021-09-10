@@ -6,10 +6,11 @@ import { ShowUserProfileError } from "./ShowUserProfileError";
 @injectable()
 export class ShowUserProfileUseCase {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository
   ) {}
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async execute(user_id: string) {
     const user = await this.usersRepository.findById(user_id);
 

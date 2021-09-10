@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
-import { container } from 'tsyringe';
+import { Request, Response } from "express";
+import { container } from "tsyringe";
 
-import { ProfileMap } from '../../mappers/ProfileMap';
-import { ShowUserProfileUseCase } from './ShowUserProfileUseCase';
+import { ProfileMap } from "../../mappers/ProfileMap";
+import { ShowUserProfileUseCase } from "./ShowUserProfileUseCase";
 
 export class ShowUserProfileController {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async execute(request: Request, response: Response) {
     const { id } = request.user;
 

@@ -23,6 +23,15 @@ export class CreateTransferController {
       type,
     });
 
-    return response.status(200).json(transfer);
+    const { id, created_at, updated_at } = transfer;
+    return response.status(200).json({
+      id,
+      sender_id,
+      amount,
+      description,
+      type,
+      created_at,
+      updated_at,
+    });
   }
 }

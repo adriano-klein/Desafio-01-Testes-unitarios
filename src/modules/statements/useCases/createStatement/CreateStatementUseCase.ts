@@ -23,7 +23,7 @@ export class CreateStatementUseCase {
       throw new CreateStatementError.UserNotFound();
     }
 
-    if (type === "withdraw") {
+    if (type === "withdraw" || type === "transfer") {
       const { balance } = await this.statementsRepository.getUserBalance({
         user_id,
       });

@@ -5,7 +5,6 @@ import { OperationType } from "../../entities/OperationType";
 import { Statement } from "../../entities/Statement";
 import { IStatementsRepository } from "../../repositories/IStatementsRepository";
 import { CreateStatementUseCase } from "../createStatement/CreateStatementUseCase";
-import { GetBalanceUseCase } from "../getBalance/GetBalanceUseCase";
 import { CreateTransferError } from "./CreateTransferError";
 
 interface ICreateTransfer {
@@ -32,17 +31,10 @@ export class CreateTransferUserCase {
     sender_id,
   }: ICreateTransfer): Promise<Statement> {
     const user = await this.usersRepository.findById(destination_user_id);
-    const getBalance = container.resolve(GetBalanceUseCase);
     const createStatement = container.resolve(CreateStatementUseCase);
 
     if (!user) {
       throw new CreateTransferError.UserNotFound();
-    }
-
-    const balance = await getBalance.execute({ user_id: sender_id });
-
-    if (balance.balance < amount) {
-      throw new CreateTransferError.InsufficientFunds();
     }
 
     const transfer = await createStatement.execute({

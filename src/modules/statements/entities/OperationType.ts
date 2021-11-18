@@ -1,6 +1,7 @@
 enum OperationType {
-  DEPOSIT = 'deposit',
-  WITHDRAW = 'withdraw',
+  TRANSFER = "transfer",
+  DEPOSIT = "deposit",
+  WITHDRAW = "withdraw",
 }
 
-export { OperationType }
+export { OperationType };

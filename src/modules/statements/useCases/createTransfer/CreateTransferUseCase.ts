@@ -40,6 +40,7 @@ export class CreateTransferUserCase {
     const transfer = await createStatement.execute({
       amount,
       description,
+      sender_id,
       type: "transfer" as OperationType,
       user_id: sender_id,
     });
@@ -50,6 +51,7 @@ export class CreateTransferUserCase {
       description,
       type: "deposit" as OperationType,
       user_id: user.id as string,
+      sender_id,
     });
 
     return transfer;

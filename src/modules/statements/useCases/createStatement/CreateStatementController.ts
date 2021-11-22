@@ -15,6 +15,8 @@ export class CreateStatementController {
     const { id: user_id } = request.user;
     const { amount, description } = request.body;
 
+    const sender_id = request.user.id;
+
     const splittedPath = request.originalUrl.split("/");
     const type = splittedPath[splittedPath.length - 1] as OperationType;
 
@@ -25,6 +27,7 @@ export class CreateStatementController {
       type,
       amount,
       description,
+      sender_id,
     });
 
     return response.status(201).json(statement);

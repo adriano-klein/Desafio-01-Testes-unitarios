@@ -24,6 +24,7 @@ export class CreateTransferController {
     });
 
     const { id, created_at, updated_at } = transfer;
+
     return response.status(200).json({
       id,
       sender_id,

@@ -1,5 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 
+import { OperationType } from "../entities/OperationType";
 import { Statement } from "../entities/Statement";
 import { ICreateStatementDTO } from "../useCases/createStatement/ICreateStatementDTO";
 import { IGetBalanceDTO } from "../useCases/getBalance/IGetBalanceDTO";
@@ -51,7 +52,11 @@ export class StatementsRepository implements IStatementsRepository {
     });
 
     const balance = statement.reduce((acc, operation) => {
-      if (operation.type === "deposit") {
+      if (
+        operation.type === "deposit" ||
+        (operation.type === "transfer" &&
+          operation.sender_id !== operation.user_id)
+      ) {
         return acc + Number(operation.amount);
       }
       return acc - Number(operation.amount);

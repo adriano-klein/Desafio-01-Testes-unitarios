@@ -49,7 +49,7 @@ export class CreateTransferUserCase {
     await createStatement.execute({
       amount,
       description,
-      type: "deposit" as OperationType,
+      type: "transfer" as OperationType,
       user_id: user.id as string,
       sender_id,
     });

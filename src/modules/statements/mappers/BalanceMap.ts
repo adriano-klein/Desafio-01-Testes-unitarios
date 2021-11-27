@@ -22,7 +22,7 @@ export class BalanceMap {
         if (type === "transfer" && user_id !== sender_id) {
           return {
             id,
-            sender_id: user_id,
+            sender_id,
             amount: Number(amount),
             description,
             type,
@@ -30,6 +30,7 @@ export class BalanceMap {
             updated_at,
           };
         }
+        console.log({ id, user_id, sender_id });
 
         return {
           id,

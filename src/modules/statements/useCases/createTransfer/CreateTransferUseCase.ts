@@ -36,6 +36,7 @@ export class CreateTransferUserCase {
     if (!receiver) {
       throw new CreateTransferError.UserNotFound();
     }
+
     const transfer = await createStatement.execute({
       amount,
       description,

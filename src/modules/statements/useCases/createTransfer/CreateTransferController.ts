@@ -8,7 +8,7 @@ export class CreateTransferController {
   async execute(request: Request, response: Response): Promise<Response> {
     const { amount, description } = request.body;
     const { id: sender_id } = request.user;
-    const { user_id: destination_user_id } = request.params;
+    const { destination_user_id } = request.params;
 
     const splittedPath = request.originalUrl.split("/");
     const type = splittedPath[splittedPath.length - 1] as OperationType;

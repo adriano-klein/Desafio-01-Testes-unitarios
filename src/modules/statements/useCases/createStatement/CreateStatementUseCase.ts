@@ -1,6 +1,8 @@
+import { send } from "process";
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "../../../users/repositories/IUsersRepository";
+import { Statement } from "../../entities/Statement";
 import { IStatementsRepository } from "../../repositories/IStatementsRepository";
 import { CreateStatementError } from "./CreateStatementError";
 import { ICreateStatementDTO } from "./ICreateStatementDTO";
@@ -15,23 +17,22 @@ export class CreateStatementUseCase {
     private statementsRepository: IStatementsRepository
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async execute({
-    user_id,
+    user_id, // destino
     type,
     amount,
     description,
     sender_id,
-  }: ICreateStatementDTO) {
+  }: ICreateStatementDTO): Promise<Statement> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new CreateStatementError.UserNotFound();
     }
 
-    if (type === "withdraw") {
+    if (type === "withdraw" || type === "transfer") {
       const { balance } = await this.statementsRepository.getUserBalance({
-        user_id,
+        user_id: sender_id,
       });
 
       if (balance < amount) {
@@ -46,6 +47,7 @@ export class CreateStatementUseCase {
       description,
       sender_id,
     });
+
     return statementOperation;
   }
 }

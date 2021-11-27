@@ -19,7 +19,7 @@ export class BalanceMap {
         created_at,
         updated_at,
       }) => {
-        if (type === "transfer") {
+        if (type === "transfer" && user_id !== sender_id) {
           return {
             id,
             sender_id: user_id,

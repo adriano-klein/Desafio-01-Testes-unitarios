@@ -30,13 +30,12 @@ export class CreateTransferUserCase {
     description,
     sender_id,
   }: ICreateTransfer): Promise<Statement> {
-    const user = await this.usersRepository.findById(destination_user_id);
+    const receiver = await this.usersRepository.findById(destination_user_id);
     const createStatement = container.resolve(CreateStatementUseCase);
 
-    if (!user) {
+    if (!receiver) {
       throw new CreateTransferError.UserNotFound();
     }
-
     const transfer = await createStatement.execute({
       amount,
       description,
@@ -50,7 +49,7 @@ export class CreateTransferUserCase {
       amount,
       description,
       type: "transfer" as OperationType,
-      user_id: user.id as string,
+      user_id: receiver.id as string,
       sender_id,
     });
 
